@@ -44,7 +44,7 @@ def plot_RSI(data, column, window=14, limit_up=70.0, limit_down=30.0):
     ax1.legend()
 
     # Plot RSI
-    ax2.plot(data.index, RSI, color="#033660")
+    ax2.plot(data.index, RSI, color="#033660", label="RSI")
     valorRSI = RSI.iloc[-1]
     ax2.text(data.index._data[-1],valorRSI, valorRSI)
     ax2.axhline(y=limit_down, color='white', linestyle='--')
