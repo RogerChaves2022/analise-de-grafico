@@ -5,8 +5,8 @@ import ta.momentum
 import time as tm
 import schedule as sc
 
-api_key = "aC4W8M0MihjfzucnL87UNtjvgul1Lsfi9dUVO674kDmqWrmfY3WU6gISP1YOxibE"
-private_key = "3KeBWWb5EZYNO8e4wzNsplCAqOp9rclOTvRIIvEgmKgkY1GQgYuQxRrItOiND1W1"
+api_key = ""
+private_key = ""
 
 binance = ccxt.binance({'apiKey':api_key, 'secret':
                 private_key, 'enableRateLimit': True})
@@ -36,6 +36,9 @@ def tarefa():
         #obtendo preços em brl
         ticker = binance.fetch_tickers()
         brl_tickers = {symbol: ticker[symbol] for symbol in ticker if symbol.endswith('/BRL')}
+        sol_tickers = {symbol: ticker[symbol] for symbol in ticker if symbol.__eq__('SOL/USDT')}
+        price_solana = sol_tickers['SOL/USDT']['last'] * 1
+        
 
         #convertendo saldos para BRL
         balance_brl = {}
@@ -52,6 +55,8 @@ def tarefa():
         timeframe = "1m"
         rsi_data = get_rsi("SOLUSDT", timeframe)
         rsi_solana = rsi_data.iloc[-1]["rsi"]
+        
+        print("Preço da solana ", price_solana)
         print("RSI SOLANA", rsi_solana)
     except ccxt.NetworkError as e:
         print(f"Erro de rede: {e}")
